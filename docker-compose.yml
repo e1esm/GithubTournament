@@ -1,0 +1,26 @@
+version: '3.8'
+
+services:
+  postgres:
+    build:
+      context: .
+      dockerfile: db.Dockerfile
+    container_name: database
+    image: postgres:latest
+    environment:
+      POSTGRES_USER: ${DB_USER}
+      POSTGRES_DB: ${DB_NAME}
+      POSTGRES_PASSWORD: ${DB_PASSWORD}
+    volumes:
+      - dbdata:/var/lib/postgresql/data
+    ports:
+      - "5432:5432"
+    restart: always
+  bot:
+    container_name: bot
+    build:
+      context: .
+      dockerfile: bot.Dockerfile
+    restart: always
+volumes:
+  dbdata:
