@@ -27,8 +27,9 @@ func main() {
 	if err != nil {
 		log.Fatal(err)
 	}
-	db, err := gorm.Open(postgres.Open(fmt.Sprintf("host=%s user=%s password=%s dbname=%s port=%d sslmode=disable",
-		dbconfig.DBHost, dbconfig.DBUser, dbconfig.DBPassword, dbconfig.DBName, dbconfig.DBPort)), &gorm.Config{})
+	//dbUrl := "postgres://postgres:E9602922@172.21.0.1:5432/Github_Tournament"
+	dbUrl := fmt.Sprintf("postgres://%s:%s@%s:%s/%s", dbconfig.DBUser, dbconfig.DBPassword, dbconfig.DBHost, dbconfig.DBPort, dbconfig.DBName)
+	db, err := gorm.Open(postgres.Open(dbUrl), &gorm.Config{})
 	if err != nil {
 		log.Fatal(err)
 	}
