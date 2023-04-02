@@ -1,8 +1,8 @@
 package service
 
 import (
-	"XDaysOfCodeBot/internal/models"
-	"XDaysOfCodeBot/internal/repository"
+	"XDaysOfCodeBot/bot/internal/models"
+	"XDaysOfCodeBot/bot/internal/repository"
 )
 
 type ChatService struct {
@@ -17,12 +17,12 @@ func (c *ChatService) NewChat(chat models.Chat) {
 	c.chatRepository.DB.Create(&chat)
 }
 
-func (c *ChatService) FindOne(chatId int64) bool {
+func (c *ChatService) FindOne(chatId int64) (models.Chat, bool) {
 	isStored := true
 	chat := models.Chat{ChatID: chatId}
 	c.chatRepository.DB.Find(&chat)
 	if chat.UserId == 0 {
 		isStored = false
 	}
-	return isStored
+	return chat, isStored
 }

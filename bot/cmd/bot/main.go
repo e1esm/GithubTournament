@@ -1,11 +1,11 @@
 package main
 
 import (
-	configuration "XDaysOfCodeBot/cmd/config"
-	"XDaysOfCodeBot/internal/models"
-	"XDaysOfCodeBot/internal/repository"
-	"XDaysOfCodeBot/internal/router"
-	"XDaysOfCodeBot/internal/service"
+	configuration "XDaysOfCodeBot/bot/cmd/config"
+	models2 "XDaysOfCodeBot/bot/internal/models"
+	repository2 "XDaysOfCodeBot/bot/internal/repository"
+	"XDaysOfCodeBot/bot/internal/router"
+	service2 "XDaysOfCodeBot/bot/internal/service"
 	"fmt"
 	tgbotapi "github.com/go-telegram-bot-api/telegram-bot-api/v5"
 	"github.com/joho/godotenv"
@@ -33,7 +33,7 @@ func main() {
 	if err != nil {
 		log.Fatal(err)
 	}
-	db.AutoMigrate(&models.User{}, &models.Chat{})
+	db.AutoMigrate(&models2.User{}, &models2.Chat{})
 
 	bot, err := tgbotapi.NewBotAPI(token)
 	if err != nil {
@@ -46,10 +46,10 @@ func main() {
 
 	updates := bot.GetUpdatesChan(u)
 
-	userRepository := repository.NewUserRepository(db)
-	chatRepository := repository.NewChatRepository(db)
-	chatService := service.NewChatService(*chatRepository)
-	tournamentService := service.NewTournamentService(*userRepository)
+	userRepository := repository2.NewUserRepository(db)
+	chatRepository := repository2.NewChatRepository(db)
+	chatService := service2.NewChatService(*chatRepository)
+	tournamentService := service2.NewTournamentService(*userRepository)
 	rtr := router.NewRouter(bot, *tournamentService, *chatService)
 
 	for update := range updates {
