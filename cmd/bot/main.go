@@ -27,13 +27,13 @@ func main() {
 	if err != nil {
 		log.Fatal(err)
 	}
-	//dbUrl := "postgres://postgres:E9602922@172.21.0.1:5432/Github_Tournament"
+
 	dbUrl := fmt.Sprintf("postgres://%s:%s@%s:%s/%s", dbconfig.DBUser, dbconfig.DBPassword, dbconfig.DBHost, dbconfig.DBPort, dbconfig.DBName)
 	db, err := gorm.Open(postgres.Open(dbUrl), &gorm.Config{})
 	if err != nil {
 		log.Fatal(err)
 	}
-	db.AutoMigrate(&models.User{})
+	db.AutoMigrate(&models.User{}, &models.Chat{})
 
 	bot, err := tgbotapi.NewBotAPI(token)
 	if err != nil {
@@ -45,11 +45,15 @@ func main() {
 	u.Timeout = 60
 
 	updates := bot.GetUpdatesChan(u)
-	repository := repository.NewUserRepository(db)
-	tournamentService := service.NewTournamentService(*repository)
-	rtr := router.NewRouter(bot, *tournamentService)
+
+	userRepository := repository.NewUserRepository(db)
+	chatRepository := repository.NewChatRepository(db)
+	chatService := service.NewChatService(*chatRepository)
+	tournamentService := service.NewTournamentService(*userRepository)
+	rtr := router.NewRouter(bot, *tournamentService, *chatService)
 
 	for update := range updates {
 		rtr.HandleUpdate(update)
 	}
+
 }

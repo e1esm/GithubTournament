@@ -13,10 +13,11 @@ type TournamentRouter interface {
 type Router struct {
 	bot               *tgbotapi.BotAPI
 	tournamentService service.TournamentService
+	chatService       service.ChatService
 }
 
-func NewRouter(bot *tgbotapi.BotAPI, tournamentService service.TournamentService) *Router {
-	return &Router{bot: bot, tournamentService: tournamentService}
+func NewRouter(bot *tgbotapi.BotAPI, tournamentService service.TournamentService, chatService service.ChatService) *Router {
+	return &Router{bot: bot, tournamentService: tournamentService, chatService: chatService}
 }
 
 func (r *Router) HandleUpdate(update tgbotapi.Update) {

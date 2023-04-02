@@ -4,7 +4,7 @@ import "gorm.io/gorm"
 
 type User struct {
 	gorm.Model
-	ID       int `gorm:"primaryKey"`
+	ID       int `gorm:"primaryKey:id"`
 	Username string
 	Link     string
 	Commits  int

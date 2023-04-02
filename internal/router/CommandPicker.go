@@ -6,6 +6,10 @@ func (r *Router) PickCommand(update tgbotapi.Update) {
 	switch update.Message.Command() {
 	case "add":
 		r.VerifyAccount(*update.Message)
+	case "rating":
+		r.GetRating(*update.Message)
+	case "change":
+		r.ChangeAccount(*update.Message)
 	default:
 		msg := tgbotapi.NewMessage(update.Message.Chat.ID, "Invalid user")
 		r.bot.Send(msg)

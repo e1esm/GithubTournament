@@ -3,6 +3,7 @@ module XDaysOfCodeBot
 go 1.20
 
 require (
+	github.com/enescakir/emoji v1.0.0 // indirect
 	github.com/go-telegram-bot-api/telegram-bot-api/v5 v5.5.1 // indirect
 	github.com/jackc/pgpassfile v1.0.0 // indirect
 	github.com/jackc/pgservicefile v0.0.0-20221227161230-091c0ba34f0a // indirect

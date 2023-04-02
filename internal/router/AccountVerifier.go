@@ -2,6 +2,8 @@ package router
 
 import (
 	"XDaysOfCodeBot/internal/models"
+	"fmt"
+	"github.com/enescakir/emoji"
 	tgbotapi "github.com/go-telegram-bot-api/telegram-bot-api/v5"
 	"log"
 	"net/http"
@@ -19,8 +21,15 @@ func (r *Router) VerifyAccount(message tgbotapi.Message) {
 		r.bot.Send(msg)
 	} else {
 		user := models.User{Username: arg, Link: link + arg}
-		r.tournamentService.NewUser(user)
-		msg := tgbotapi.NewMessage(message.Chat.ID, "found this account")
-		r.bot.Send(msg)
+		doesExist := r.chatService.FindOne(message.Chat.ID)
+		if doesExist {
+			msg := tgbotapi.NewMessage(message.Chat.ID, fmt.Sprintf("You already have linked account %v\n", emoji.RedCircle))
+			r.bot.Send(msg)
+		} else {
+			r.tournamentService.NewUser(user)
+			r.chatService.NewChat(models.Chat{ChatID: message.Chat.ID, User: user})
+			msg := tgbotapi.NewMessage(message.Chat.ID, fmt.Sprintf("Github account was found %v\n", emoji.GreenCircle))
+			r.bot.Send(msg)
+		}
 	}
 }
