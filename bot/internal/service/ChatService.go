@@ -1,8 +1,8 @@
 package service
 
 import (
-	"XDaysOfCodeBot/bot/internal/models"
-	"XDaysOfCodeBot/bot/internal/repository"
+	"XDaysOfCodeBot/internal/models"
+	"XDaysOfCodeBot/internal/repository"
 )
 
 type ChatService struct {

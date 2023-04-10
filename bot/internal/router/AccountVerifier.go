@@ -1,7 +1,7 @@
 package router
 
 import (
-	models2 "XDaysOfCodeBot/bot/internal/models"
+	models2 "XDaysOfCodeBot/internal/models"
 	"fmt"
 	"github.com/enescakir/emoji"
 	tgbotapi "github.com/go-telegram-bot-api/telegram-bot-api/v5"

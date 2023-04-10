@@ -1,7 +1,7 @@
 package router
 
 import (
-	service2 "XDaysOfCodeBot/bot/internal/service"
+	service2 "XDaysOfCodeBot/internal/service"
 	tgbotapi "github.com/go-telegram-bot-api/telegram-bot-api/v5"
 )
 

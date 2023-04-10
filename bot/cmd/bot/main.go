@@ -1,11 +1,11 @@
 package main
 
 import (
-	configuration "XDaysOfCodeBot/bot/cmd/config"
-	models2 "XDaysOfCodeBot/bot/internal/models"
-	repository2 "XDaysOfCodeBot/bot/internal/repository"
-	"XDaysOfCodeBot/bot/internal/router"
-	service2 "XDaysOfCodeBot/bot/internal/service"
+	configuration "XDaysOfCodeBot/cmd/config"
+	models2 "XDaysOfCodeBot/internal/models"
+	repository2 "XDaysOfCodeBot/internal/repository"
+	"XDaysOfCodeBot/internal/router"
+	service2 "XDaysOfCodeBot/internal/service"
 	"fmt"
 	tgbotapi "github.com/go-telegram-bot-api/telegram-bot-api/v5"
 	"github.com/joho/godotenv"

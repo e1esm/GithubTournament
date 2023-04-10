@@ -21,13 +21,13 @@ func (r *Router) Chart(message tgbotapi.Message, callback tgbotapi.CallbackQuery
 		currentOffset += decData
 	}
 	users := r.tournamentService.FetchSome(currentOffset)
-	header := "Chart\n\n=="
-	bodyOfMessage := ""
+	body := "Chart\n\n===="
+	chart := ""
 	for _, user := range users {
-		bodyOfMessage += "Username: " + user.Username + "Rating: " + fmt.Sprintf("%v\n", user.Rating) + "=====\n"
+		chart += "Username: " + user.Username + "Rating: " + fmt.Sprintf("%v\n", user.Rating) + "=====\n"
 	}
-	header += bodyOfMessage
-	msg := tgbotapi.NewMessage(message.Chat.ID, header)
+	body += chart
+	msg := tgbotapi.NewMessage(message.Chat.ID, body)
 	msg.ReplyMarkup = inlineKeyboard
 	r.bot.Send(msg)
 }
