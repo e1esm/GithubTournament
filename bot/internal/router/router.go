@@ -25,5 +25,8 @@ func (r *Router) HandleUpdate(update tgbotapi.Update) {
 		if update.Message.IsCommand() {
 			r.PickCommand(update)
 		}
+		if update.CallbackQuery != nil {
+			r.Chart(*update.Message, *update.CallbackQuery)
+		}
 	}
 }

@@ -32,3 +32,9 @@ func (t *TournamentService) FindByChat(chat models.Chat) models.User {
 	t.repository.DB.Where("id = ?", chat.UserId).Find(&user)
 	return user
 }
+
+func (t *TournamentService) FetchSome(offset int) []models.User {
+	var users []models.User
+	t.repository.DB.Limit(10).Offset(offset).Order("rating").Find(&users)
+	return users
+}
