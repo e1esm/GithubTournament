@@ -8,6 +8,7 @@ import (
 	"fmt"
 	"log"
 	"net/http"
+	"time"
 )
 
 type GithubService struct {
@@ -35,7 +36,7 @@ func (s *GithubService) GetDataFromAPI(token string, username string) {
                 }
               }
             }
-          }`, username, "2023-04-01T12:19:51Z", "2023-04-13T12:19:51Z"),
+          }`, username, "2023-04-01T12:19:51Z", time.Now().Format(time.RFC3339)),
 	}
 	b, err := json.Marshal(&query)
 	if err != nil {
